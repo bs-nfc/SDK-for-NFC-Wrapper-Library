@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FeliCa\Command\ICommand.cs" />
+    <Compile Include="FeliCa\Command\PollingCommand.cs" />
+    <Compile Include="FeliCa\FeliCaException.cs" />
+    <Compile Include="FeliCa\FeliCaLibWrapper.cs" />
+    <Compile Include="FeliCa\Response\CommandResponse.cs" />
+    <Compile Include="FeliCa\Response\PollingCommnadResponse.cs" />
     <Compile Include="felica_nfc_dll_wrapper_basic.cs" />
     <Compile Include="Forms\NFCForm.cs">
       <SubType>Form</SubType>
@@ -59,6 +65,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ByteUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

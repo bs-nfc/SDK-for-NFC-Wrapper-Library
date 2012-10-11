@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using SDKforNFCWrapperLibrary.Forms;
 using SampleProject.Utils;
+using System.Diagnostics;
+using SDKforNFCWrapperLibrary.FeliCa;
+using SDKforNFCWrapperLibrary.FeliCa.Command;
+using SDKforNFCWrapperLibrary.FeliCa.Response;
 
 namespace SampleProject.Forms
 {
@@ -15,7 +19,6 @@ namespace SampleProject.Forms
     {
         public NFCHandleForm()
         {
-
             InitializeComponent();
         }
 
@@ -26,8 +29,21 @@ namespace SampleProject.Forms
 
         private void NFCHandleForm_DiscoverNfcFTag(object sender, NfcFEventArgs e)
         {
-            string nfcId = Util.ToHexString(e.DeviceDataF.NFCID2);
-            MessageBox.Show(this, nfcId, "Discover NFC Tag");
+            Debug.WriteLine("Discover Tag");
+
+            FeliCaLibWrapper felicaLib = new FeliCaLibWrapper();
+            PollingCommand command = new PollingCommand(PollingCommand.SYSTEM_CODE_WILDCARD, PollingCommand.REQUEST_CODE_REQUEST_SYSTEM_CODE);
+            try
+            {
+                CommandResponse response = felicaLib.PerformCommand(command);
+                PollingCommnadResponse pollingResponse = new PollingCommnadResponse(response);
+                pollingResponse.Dump();
+            }
+            catch (FeliCaException)
+            {
+                DispatchErrorEvent();
+                Close();
+            }
         }
 
         private void NFCHandleForm_NfcError(object sender, NfcErrorEventArgs e)

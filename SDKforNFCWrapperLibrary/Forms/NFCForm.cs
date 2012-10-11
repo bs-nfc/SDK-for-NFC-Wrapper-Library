@@ -183,7 +183,7 @@ namespace SDKforNFCWrapperLibrary.Forms
                 FeliCaNfcDllWrapperClass.FeliCaLibNfcStopLogging();
         }
 
-        private void DispatchErrorEvent()
+        protected void DispatchErrorEvent()
         {
             UInt32[] errorInfo = new UInt32[2] { 0, 0 };
             FeliCaNfcDllWrapperClass.FeliCaLibNfcGetLastError(errorInfo);
@@ -258,6 +258,7 @@ namespace SDKforNFCWrapperLibrary.Forms
             DEVICE_DATA_NFC_18092_212_424K deviceData_F =
                 (DEVICE_DATA_NFC_18092_212_424K)Marshal.PtrToStructure(pDeviceData,
                 typeof(DEVICE_DATA_NFC_18092_212_424K));
+            FeliCaNfcDllWrapperClass.FeliCaLibNfcStartDevAccess(deviceData_F.target_number);
             DiscoverNfcFTag(this, new NfcFEventArgs(deviceData_F));
         }
 
@@ -266,6 +267,7 @@ namespace SDKforNFCWrapperLibrary.Forms
             DEVICE_DATA_NFC_14443A_18092_106K deviceData_A =
                 (DEVICE_DATA_NFC_14443A_18092_106K)Marshal.PtrToStructure(pDeviceData,
                 typeof(DEVICE_DATA_NFC_14443A_18092_106K));
+            FeliCaNfcDllWrapperClass.FeliCaLibNfcStartDevAccess(deviceData_A.target_number);
             DiscoverNfcATag(this, new NfcAEventArgs(deviceData_A));
         }
 
@@ -274,6 +276,7 @@ namespace SDKforNFCWrapperLibrary.Forms
             DEVICE_DATA_NFC_14443B_106K deviceData_B =
                 (DEVICE_DATA_NFC_14443B_106K)Marshal.PtrToStructure(pDeviceData,
                 typeof(DEVICE_DATA_NFC_14443B_106K));
+            FeliCaNfcDllWrapperClass.FeliCaLibNfcStartDevAccess(deviceData_B.target_number);
             DiscoverNfcBTag(this, new NfcBEventArgs(deviceData_B));
         }
 
